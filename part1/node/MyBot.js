@@ -89,8 +89,8 @@ class MyBot {
         // For example, we may need to return the results of a databse lookup or 3rd party API call.
         // Here we look to see if a custom "action" has been configured in Watson Conversation and if we
         // need to return a custom response based on the action. 
-        const action = conversationResponse.context.action;
-        if (action == "xxx") {
+        const action = conversationResponse.context["action"];
+        if (action == "findDoctorByLocation") {
              return this.handleXXXMessage(conversationResponse);
         }
         else {
@@ -118,9 +118,11 @@ class MyBot {
      * @returns {Promise.<string|error>} - The reply to send to the user if fulfilled, or an error if rejected
      */
     handleXXXMessage(conversationResponse) {
-        // let entity = conversationResponse.entities[0].value
+        let location = conversationResponse.entities[0].value
+        let specialty = conversationResponse.context.specialty;
+        
         // let contextVar = conversationResponse.context.var
-        let reply = 'TBD';
+        let reply = 'Here we would search for ' + specialty + ' in ' + location;
         return Promise.resolve(reply);
     }
 }
